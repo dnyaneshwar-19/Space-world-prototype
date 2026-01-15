@@ -1,3 +1,8 @@
-Starting git operations 
-Reinitialized existing Git repository in C:/Users/Dnyaneshwar V Tupe/Desktop/SpaceWorld Website Design prototype/.git/
-Git init done 
+Resolving conflict 
+Added README 
+[main c0a55ae] Merge remote-tracking branch 'origin/main'
+Commit done 
+branch 'main' set up to track 'origin/main'.
+To https://github.com/dnyaneshwar-19/Space-world-prototype.git
+   4146e51..c0a55ae  main -> main
+Push done 
