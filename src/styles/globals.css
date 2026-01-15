@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  
+  /* SpaceWorld Custom Colors */
+  --deep-space-black: #0B1020;
+  --galaxy-blue: #0F1A2E;
+  --nebula-purple: #1A1336;
+  --neon-blue: #4CC9F0;
+  --electric-cyan: #38BDF8;
+  --solar-orange: #F97316;
+  --cosmic-red: #EF4444;
+  --success-green: #22C55E;
+  --warning-yellow: #FACC15;
+  --text-primary: #E5E7EB;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  
+  /* Base tokens */
+  --background: var(--deep-space-black);
+  --foreground: var(--text-primary);
+  --card: var(--galaxy-blue);
+  --card-foreground: var(--text-primary);
+  --popover: var(--galaxy-blue);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--neon-blue);
+  --primary-foreground: var(--deep-space-black);
+  --secondary: var(--electric-cyan);
+  --secondary-foreground: var(--deep-space-black);
+  --muted: #1F2937;
+  --muted-foreground: var(--text-muted);
+  --accent: var(--neon-blue);
+  --accent-foreground: var(--deep-space-black);
+  --destructive: var(--cosmic-red);
+  --destructive-foreground: #ffffff;
+  --border: rgba(76, 201, 240, 0.2);
+  --input: rgba(76, 201, 240, 0.1);
+  --input-background: rgba(15, 26, 46, 0.6);
+  --switch-background: #374151;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: var(--neon-blue);
+  --chart-1: var(--neon-blue);
+  --chart-2: var(--electric-cyan);
+  --chart-3: var(--nebula-purple);
+  --chart-4: var(--solar-orange);
+  --chart-5: var(--success-green);
+  --radius: 0.75rem;
+  --sidebar: var(--galaxy-blue);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--neon-blue);
+  --sidebar-primary-foreground: var(--deep-space-black);
+  --sidebar-accent: rgba(76, 201, 240, 0.1);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: rgba(76, 201, 240, 0.2);
+  --sidebar-ring: var(--neon-blue);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  /* Starfield background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(2px 2px at 20px 30px, white, transparent),
+      radial-gradient(2px 2px at 60px 70px, white, transparent),
+      radial-gradient(1px 1px at 50px 50px, white, transparent),
+      radial-gradient(1px 1px at 130px 80px, white, transparent),
+      radial-gradient(2px 2px at 90px 10px, white, transparent),
+      var(--deep-space-black);
+    background-size: 200px 200px;
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px, 0 0;
+    opacity: 0.4;
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=' text-']), :not(:has([class^='text-'])))) {
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+/* Custom animations */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(76, 201, 240, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(76, 201, 240, 0.6);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.glow-border {
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.3);
+}
+
+.glow-border:hover {
+  box-shadow: 0 0 30px rgba(76, 201, 240, 0.5);
+}
+
+.glass-panel {
+  background: rgba(15, 26, 46, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(76, 201, 240, 0.2);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B1020;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4CC9F0 0%, #38BDF8 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #38BDF8 0%, #4CC9F0 100%);
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
