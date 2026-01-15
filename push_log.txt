@@ -1,0 +1,3 @@
+Starting git operations 
+Reinitialized existing Git repository in C:/Users/Dnyaneshwar V Tupe/Desktop/SpaceWorld Website Design prototype/.git/
+Git init done 
