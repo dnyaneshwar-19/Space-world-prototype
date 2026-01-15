@@ -210,21 +210,38 @@ export function InteractiveMap({
                     }
                 }}
             >
-                <Popup className="custom-popup">
-                    <div className="p-2 min-w-[120px]">
-                        <div className="text-xs font-bold text-[#4CC9F0] mb-1">ISS Live Position</div>
-                        <div className="text-[9px] text-gray-400 mb-2 italic">Real-time projection</div>
-                        <div className="flex justify-between text-[10px] text-gray-400">
-                            <span>Velocity:</span>
-                            <span className="text-white">7.66 km/s</span>
+                <Popup className="custom-popup" closeButton={false} minWidth={220}>
+                    <div className="p-4 space-y-2">
+                        <div className="flex items-center justify-between mb-1">
+                             <div className="flex items-center gap-1.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#4CC9F0] animate-pulse"></span>
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-[#4CC9F0]">
+                                    ISS TRACKER
+                                </span>
+                            </div>
+                            <span className="text-[9px] font-mono text-white/40 border border-white/10 px-1.5 py-0.5 rounded">
+                                SYSTEM ACTIVE
+                            </span>
                         </div>
-                        <div className="flex justify-between text-[10px] text-gray-400">
-                            <span>Altitude:</span>
-                            <span className="text-white">422 km</span>
+                        
+                        <div className="text-sm font-bold text-white leading-tight mb-2">
+                            International Space Station
                         </div>
-                        <div className="mt-2 pt-2 border-t border-white/10 text-[9px] text-[#4CC9F0] flex items-center justify-between cursor-pointer hover:underline">
+
+                        <div className="space-y-1.5 border-t border-white/10 pt-2">
+                             <div className="flex justify-between text-[11px] text-white/70">
+                                <span>Velocity:</span>
+                                <span className="text-white font-mono font-bold">7.66 km/s</span>
+                            </div>
+                             <div className="flex justify-between text-[11px] text-white/70">
+                                <span>Altitude:</span>
+                                <span className="text-white font-mono font-bold">422 km</span>
+                            </div>
+                        </div>
+
+                         <div className="mt-2 text-[10px] text-[#4CC9F0] flex items-center gap-1 cursor-pointer hover:underline opacity-80 hover:opacity-100 transition-opacity">
+                            <Globe className="w-3 h-3" />
                             <span>View Mission Data</span>
-                            <Globe className="w-2 h-2" />
                         </div>
                     </div>
                 </Popup>
@@ -267,22 +284,51 @@ export function InteractiveMap({
                         position={coords}
                         icon={getMapIcon(event.type, eventColor, getEventEmoji(event.type), isHovered, !!event.isInterested)}
                         opacity={opacity}
-                        eventHandlers={{
-                            click: () => onEventSelect?.(event)
-                        }}
                     >
-                        <Popup className="custom-popup">
-                            <div className="p-2 space-y-1">
-                                <div className="text-[9px] font-bold uppercase tracking-wider" style={{ color: eventColor }}>
-                                    {event.type} Visibility Node
+                        <Popup className="custom-popup" closeButton={false} minWidth={220}>
+                            <div className="p-4 space-y-2">
+                                {/* Header / Type */}
+                                <div className="flex items-center justify-between mb-1">
+                                    <div className="flex items-center gap-1.5">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#EF4444] animate-pulse"></span>
+                                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#EF4444]">
+                                            {event.type}
+                                        </span>
+                                    </div>
+                                    <span className="text-[9px] font-mono text-white/40 border border-white/10 px-1.5 py-0.5 rounded">
+                                        LIVE
+                                    </span>
                                 </div>
-                                <div className="text-xs font-bold text-white">{event.title}</div>
-                                <div className="flex items-center gap-1.5 text-[10px] text-gray-400 mt-2">
-                                    <Clock className="w-3 h-3" />
-                                    Scanning: {event.countdown}
+
+                                {/* Title */}
+                                <div className="text-sm font-bold text-white leading-tight mb-2">
+                                    {event.title}
                                 </div>
-                                <div className="text-[8px] text-[#4CC9F0]/60 mt-1 uppercase tracking-tighter">
-                                    Global Awareness Synced
+
+                                {/* Metadata */}
+                                <div className="space-y-1.5 border-t border-white/10 pt-2">
+                                    <div className="flex items-center gap-2 text-[11px] text-white/90 font-medium">
+                                        <Clock className="w-3 h-3 text-[#4CC9F0]" />
+                                        <span>T-Minus: <span className="text-white font-bold">{event.countdown}</span></span>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-[11px] text-white/70">
+                                        <Globe className="w-3 h-3" />
+                                        <span>{event.regionRelevance || 'Global Visibility'}</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#EF4444] to-transparent opacity-50"></div>
+                            </div>
+                            
+                            <div 
+                                className="px-4 pb-3 pt-0 flex justify-end"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onEventSelect?.(event);
+                                }}
+                            >
+                                <div className="text-[10px] uppercase font-bold text-[#4CC9F0] hover:text-white transition-colors cursor-pointer flex items-center gap-1">
+                                    View Full Data <Maximize2 className="w-3 h-3" />
                                 </div>
                             </div>
                         </Popup>
@@ -373,15 +419,40 @@ export function InteractiveMap({
         .animate-spin-slow {
             animation: spin 8s linear infinite;
         }
+        
+        /* --- Floating Event Card Styles (Popup) --- */
+        .leaflet-popup {
+            z-index: 1000 !important;
+            margin-bottom: 20px !important; /* Lift it up slightly */
+        }
+        .leaflet-popup-content {
+            margin: 0 !important;
+            width: auto !important;
+        }
         .custom-popup .leaflet-popup-content-wrapper {
-            background: rgba(11, 16, 32, 0.95) !important;
-            color: white !important;
-            border: 1px solid rgba(76, 201, 240, 0.3);
-            backdrop-filter: blur(8px);
-            border-radius: 8px;
+            background: rgba(10, 15, 30, 0.85) !important;
+            color: rgba(255, 255, 255, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06) !important;
+            padding: 0 !important;
+            overflow: hidden;
         }
         .custom-popup .leaflet-popup-tip {
-            background: rgba(11, 16, 32, 0.95) !important;
+            background: rgba(10, 15, 30, 0.85) !important;
+            box-shadow: none !important;
+            border: 1px solid rgba(255,255,255,0.08); /* connect border */
+            width: 16px;
+            height: 16px;
+            margin: -8px auto 0;
+            padding: 0;
+        }
+        .leaflet-popup-shadow {
+            display: none !important;
+        }
+        .leaflet-popup-close-button {
+            display: none; 
         }
       `}</style>
     </div>

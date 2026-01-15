@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { 
   Rocket, Satellite, Moon, MapPin, ChevronDown, Check, ChevronsUpDown, Clock, 
   Calendar, Star, Bell as BellIcon, CheckCircle2, 
@@ -592,8 +593,8 @@ export function EventDetailModal({ event, onClose, onToggleInterested, onSubscri
         }, 1000);
     };
 
-    return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+    return createPortal(
+        <div className="fixed inset-0 flex items-center justify-center p-4 md:p-8" style={{ zIndex: 2147483647 }}>
              <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose}></div>
              
              {/* Wide Landscape Modal Container */}
@@ -718,7 +719,8 @@ export function EventDetailModal({ event, onClose, onToggleInterested, onSubscri
                     </div>
                 </div>
              </div>
-         </div>
+         </div>,
+         document.body
     );
 }
 
