@@ -6,7 +6,8 @@ import { HomePage } from './components/pages/HomePage';
 import { SpaceEventsPage } from './components/pages/SpaceEventsPage';
 import { MissionTimelinePage } from './components/pages/MissionTimelinePage';
 import { CosmicWeatherPage } from './components/pages/CosmicWeatherPage';
-import { InteractiveLearningPage } from './components/pages/InteractiveLearningPage';
+// import { InteractiveLearningPage } from './components/pages/InteractiveLearningPage'; // Keeping commented out or removing
+import OrbitalLabPage from './components/pages/OrbitalLabPage';
 import { RealWorldDataPage } from './components/pages/RealWorldDataPage';
 import { AboutPage } from './components/pages/AboutPage';
 import { ContactPage } from './components/pages/ContactPage';
@@ -30,7 +31,7 @@ export default function App() {
       case 'weather':
         return <CosmicWeatherPage />;
       case 'learning':
-        return <InteractiveLearningPage />;
+        return <OrbitalLabPage />;
       case 'data':
         return <RealWorldDataPage />;
       case 'about':
